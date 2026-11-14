@@ -1,0 +1,227 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>PaperWork לנועם</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: a personal letter that opens into three phone screens — what the user sees on top, what Rami Levy gets underneath */
+:root{
+  --ink:#1D1543; --paper:#F6F9FF; --sunk:#ECF0FA; --card:#FFFFFF; --muted:#5E5A7E; --line:#C5D8FF;
+  --violet:#5539D1; --violet-soft:#EDE8FF; --sky:#64A9F3;
+  --shop:#FFF4EA; --shop-e:#C9690F; --bill:#DFF4DF; --bill-e:#2F7D2F; --ins:#FFEDD7; --ins-e:#B86E00;
+  --save:#2F7D2F; --phone:#1D1543; --phone-screen:#F6F9FF;
+  --f-display:"Heebo", system-ui, "Segoe UI", Arial, sans-serif;
+  --f-body:"Heebo", system-ui, "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#E8EDF7; --paper:#161526; --sunk:#201E33; --card:#27253B; --muted:#A9A6C2; --line:#3D4770;
+  --violet:#A996FF; --violet-soft:#2E2752; --sky:#8AA5F8;
+  --shop:#543318; --shop-e:#F5A867; --bill:#274426; --bill-e:#8ED68C; --ins:#523515; --ins-e:#F1A250;
+  --save:#8ED68C; --phone:#090716; --phone-screen:#1E1C30; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#E8EDF7; --paper:#161526; --sunk:#201E33; --card:#27253B; --muted:#A9A6C2; --line:#3D4770;
+  --violet:#A996FF; --violet-soft:#2E2752; --sky:#8AA5F8;
+  --shop:#543318; --shop-e:#F5A867; --bill:#274426; --bill-e:#8ED68C; --ins:#523515; --ins-e:#F1A250;
+  --save:#8ED68C; --phone:#090716; --phone-screen:#1E1C30; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;direction:rtl}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{padding-block:56px 40px}
+.hero .wrap{display:grid;gap:20px}
+.mark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.mark i{width:28px;height:34px;border-radius:5px;background:var(--violet);position:relative;display:block}
+.mark i::after{content:"";position:absolute;inset:7px 6px auto;height:3px;border-radius:2px;background:var(--paper);box-shadow:0 7px 0 var(--paper),0 14px 0 var(--paper)}
+.hero h1{font-size:clamp(32px,5.4vw,54px);line-height:1.12;font-weight:800;max-width:17ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:56ch}
+.hero .lead strong{color:var(--ink)}
+
+/* progress */
+.section{padding-block:40px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--violet);margin-bottom:10px}
+.section h2{font-size:clamp(24px,3.4vw,34px);line-height:1.2;font-weight:800;margin-bottom:24px}
+.progress{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pitem{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:grid;gap:6px;align-content:start}
+.pitem b{font-size:17px}
+.pitem span{font-size:15px;color:var(--muted);line-height:1.5}
+
+.home-cta{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;background:var(--violet-soft);border-radius:16px;padding:20px 22px}
+.home-cta p{flex:1 1 280px;min-width:0}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--violet);color:var(--paper);text-decoration:none;font-weight:700;padding:12px 20px;border-radius:999px;font-size:16px}
+.btn:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+
+/* rami levy */
+.rl-intro{max-width:62ch;color:var(--muted);margin-top:-12px;margin-bottom:32px}
+.rl-intro strong{color:var(--ink)}
+.screens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:900px){.screens{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+.screen{display:grid;gap:14px;align-content:start;min-width:0}
+.screen-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.screen-head h3{font-size:21px;font-weight:800}
+.status{font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.status.live{background:var(--bill);color:var(--bill-e)}
+.status.build{background:var(--sunk);color:var(--muted)}
+
+.phone{background:var(--phone);border-radius:34px;padding:10px;max-width:320px;width:100%;margin-inline:auto}
+.phone-in{background:var(--phone-screen);border-radius:26px;padding:14px 14px 18px;display:grid;gap:10px;min-height:440px;align-content:start}
+.bar{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding-inline:6px}
+.app-top{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;padding-block:4px 2px}
+.chip{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px}
+.doc{border-radius:14px;padding:12px;display:grid;gap:4px}
+.doc small{font-size:12px;color:var(--muted)}
+.doc .t{font-size:15px;font-weight:700}
+.doc.shop{background:var(--shop)} .doc.shop .chip{background:var(--card);color:var(--shop-e)}
+.doc.bill{background:var(--bill)} .doc.bill .chip{background:var(--card);color:var(--bill-e)}
+.doc.ins{background:var(--ins)} .doc.ins .chip{background:var(--card);color:var(--ins-e)}
+.rows{background:var(--card);border-radius:14px;padding:8px 14px;display:grid}
+.row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding-block:8px;border-bottom:1px solid var(--sunk)}
+.row:last-child{border-bottom:0}
+.row span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.row.total{font-weight:700}
+.save{background:var(--card);border:2px solid var(--save);border-radius:14px;padding:12px;display:grid;gap:4px}
+.save .big{font-size:24px;font-weight:800;color:var(--save);font-variant-numeric:tabular-nums;line-height:1.2}
+.save small{font-size:12.5px;color:var(--muted)}
+.cta-in{background:var(--violet);color:var(--paper);border-radius:12px;text-align:center;font-weight:700;font-size:14px;padding:11px}
+.consent{font-size:12.5px;color:var(--muted);text-align:center;line-height:1.4}
+
+.gets{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:8px}
+.gets b{font-size:13px;letter-spacing:.04em;color:var(--violet)}
+.gets ul{margin:0;padding:0 18px 0 0;display:grid;gap:4px;font-size:15px}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:760px){.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.flow{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.step::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--violet-soft);color:var(--violet);font-weight:800;display:grid;place-items:center;font-size:14px}
+.step b{font-size:16px}
+.step span{font-size:14.5px;color:var(--muted);line-height:1.5}
+.privacy{margin-top:16px;font-size:15px;color:var(--muted);max-width:70ch}
+
+/* ask */
+.ask{padding-block:48px 64px}
+.ask-box{background:var(--ink);color:var(--paper);border-radius:22px;padding:32px clamp(20px,4vw,40px);display:grid;gap:14px}
+.ask-box h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;line-height:1.2;max-width:22ch}
+.ask-box p{max-width:60ch;opacity:.86}
+.sign{font-weight:700;opacity:1!important}
+.foot{font-size:13px;color:var(--muted);padding-block:0 32px}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="mark"><i aria-hidden="true"></i>PaperWork</div>
+    <h1>מה קורה נועם?</h1>
+    <p class="lead">אתה בחו"ל ולא מצליחים להיפגש, אז רציתי להראות לך בקצרה איפה אנחנו: מה התקדמנו, מה בנינו, איך האפליקציה נראית היום ומה היא יודעת לעשות. בדרך תוכל להציץ גם בדף הנחיתה של האתר.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow">איפה אנחנו</div>
+    <h2>מאפליקציה שמסדרת מסמכים, למוצר שמוצא כסף</h2>
+    <div class="progress">
+      <div class="pitem"><b>סידור אוטומטי</b><span>האפליקציה מוצאת לבד מסמכים בטלפון, בהודעות ובמייל, וממיינת אותם ל-13 קטגוריות. בעברית ובאנגלית.</span></div>
+      <div class="pitem"><b>מילוי טפסים עם AI</b><span>טפסים כמו בקשה להחזר מס מתמלאים מתוך המסמכים שכבר יש למשתמש. הוא רק בודק ושולח.</span></div>
+      <div class="pitem"><b>עוזר אישי</b><span>שואלים "כמה שילמתי על ביטוחים השנה?" ומקבלים תשובה עם מספרים, מתוך המסמכים עצמם.</span></div>
+      <div class="pitem"><b>"מה מגיע לך"</b><span>מנוע שמחפש החזרי מס, טעויות בתלוש וחיובים כפולים, ומראה למשתמש סכום.</span></div>
+      <div class="pitem"><b>מנוי בתשלום</b><span>מסלול חינם, ומסלול פלוס עם החיסכון והעוזר. מערכת התשלומים בנויה.</span></div>
+      <div class="pitem"><b>עלות נמוכה</b><span>קריאת מסמך עם AI עולה לנו פחות מאגורה. אפשר לגדול בלי שהעלות תתפוצץ.</span></div>
+    </div>
+    <div class="home-cta">
+      <p><b>דף הנחיתה של האתר.</b> ככה משתמש חדש יפגוש אותנו בפעם הראשונה.</p>
+      <a class="btn" href="https://yairbd1-code.github.io/paperwork-landing-preview/" target="_blank" rel="noopener">לדף הנחיתה ←</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow">הכיוון הבא</div>
+    <h2>איך רמי לוי יכול להתחבר לאפליקציה</h2>
+    <p class="rl-intro">באפליקציה נמצאות חשבוניות הסופר, חשבונות הסלולר ופוליסות הביטוח של המשתמשים. לכן אפשר להראות לכל אחד <strong>כמה הוא היה חוסך ברמי לוי, על הקנייה והחשבון שלו עצמו.</strong> ככה זה יכול להיראות בשלושה תחומים שרמי לוי כבר נמצא בהם:</p>
+
+    <div class="screens">
+      <!-- supermarket -->
+      <article class="screen">
+        <div class="screen-head"><h3>סופר</h3><span class="status live">בנוי, בבדיקות</span></div>
+        <div class="phone" role="img" aria-label="מסך לדוגמה: השוואת חשבונית סופר למחירי רמי לוי">
+          <div class="phone-in">
+            <div class="bar"><span>9:41</span><span>PaperWork</span></div>
+            <div class="app-top">חשבונית חדשה נקלטה</div>
+            <div class="doc shop"><span class="chip" style="justify-self:start">קניות</span><span class="t">קבלה מהסופר, 12.11</span><small>23 מוצרים</small></div>
+            <div class="rows">
+              <div class="row"><span>שילמת</span><span>₪642.30</span></div>
+              <div class="row"><span>אותו סל ברמי לוי, סניף תלפיות</span><span>₪559.80</span></div>
+              <div class="row total"><span>הפרש</span><span>₪82.50</span></div>
+            </div>
+            <div class="save"><small>אם כל הקניות של החודש היו שם</small><span class="big">חיסכון של כ-₪330</span><small>לפי המחירים של אותו יום, מוצר מול מוצר</small></div>
+            <div class="cta-in">לרשימת הקניות ברמי לוי</div>
+          </div>
+        </div>
+        <div class="gets"><b>מה רמי לוי מקבל</b><ul><li>לקוח שרואה את ההפרש על הסל שלו עצמו</li><li>השוואה לפי סניף, כי המחירים שונים בין סניפים</li><li>תזכורת חודשית עם הסכום שנחסך</li></ul></div>
+      </article>
+
+      <!-- cellular -->
+      <article class="screen">
+        <div class="screen-head"><h3>סלולר</h3><span class="status build">בבנייה</span></div>
+        <div class="phone" role="img" aria-label="מסך לדוגמה: הצעה למסלול סלולר זול יותר ברמי לוי תקשורת">
+          <div class="phone-in">
+            <div class="bar"><span>9:41</span><span>PaperWork</span></div>
+            <div class="app-top">משלם יותר מדי?</div>
+            <div class="doc bill"><span class="chip" style="justify-self:start">חשבונות</span><span class="t">חשבון סלולר, נובמבר</span><small>3 קווים</small></div>
+            <div class="rows">
+              <div class="row"><span>אתה משלם היום</span><span>₪207 לחודש</span></div>
+              <div class="row"><span>מסלול דומה ברמי לוי תקשורת</span><span>₪105 לחודש</span></div>
+              <div class="row total"><span>חיסכון בשנה</span><span>₪1,224</span></div>
+            </div>
+            <div class="save"><small>מסלול עם אותה כמות גלישה ודקות</small><span class="big">₪102 פחות בחודש</span><small>לפי החשבון האחרון שלך</small></div>
+            <div class="cta-in">שיחזרו אליי מרמי לוי תקשורת</div>
+            <p class="consent">הפרטים עוברים רק אחרי שאישרת</p>
+          </div>
+        </div>
+        <div class="gets"><b>מה רמי לוי מקבל</b><ul><li>ליד מוכן, עם הסכמה מפורשת של הלקוח</li><li>יודעים מראש כמה קווים ומה הוא משלם</li><li>פנייה בדיוק כשהחשבון מגיע</li></ul></div>
+      </article>
+
+      <!-- insurance -->
+      <article class="screen">
+        <div class="screen-head"><h3>ביטוח</h3><span class="status live">זיהוי עובד היום</span></div>
+        <div class="phone" role="img" aria-label="מסך לדוגמה: תזכורת לחידוש ביטוח רכב עם הצעה מרמי לוי">
+          <div class="phone-in">
+            <div class="bar"><span>9:41</span><span>PaperWork</span></div>
+            <div class="app-top">הביטוח מתחדש בקרוב</div>
+            <div class="doc ins"><span class="chip" style="justify-self:start">ביטוח</span><span class="t">ביטוח רכב מקיף</span><small>מתחדש ב-02.01.2027, בעוד 49 יום</small></div>
+            <div class="rows">
+              <div class="row"><span>פרמיה שנתית היום</span><span>₪4,860</span></div>
+              <div class="row"><span>התייקרות מאשתקד</span><span>18%</span></div>
+              <div class="row total"><span>הצעה מרמי לוי</span><span>לבדיקה</span></div>
+            </div>
+            <div class="save"><small>לפני שהפוליסה מתחדשת לבד</small><span class="big">בדיקת מחיר בלחיצה</span><small>בלי למלא שוב את כל הפרטים</small></div>
+            <div class="cta-in">לקבל הצעה מרמי לוי</div>
+            <p class="consent">הפרטים עוברים רק אחרי שאישרת</p>
+          </div>
+        </div>
+        <div class="gets"><b>מה רמי לוי מקבל</b><ul><li>פנייה חודש-חודשיים לפני החידוש, ברגע ההחלטה</li><li>יודעים מה הלקוח משלם היום</li><li>כבר היום אנחנו מזהים פוליסות ומועדי חידוש</li></ul></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ask">
+  <div class="wrap">
+    <div class="ask-box">
+      <h2>איפה אנחנו עומדים</h2>
+      <p>אנחנו בשלבים האחרונים של הכנת התשתיות. נשאר לסגור את הצד המשפטי ואת אבטחת המידע, אבל בסך הכול האפליקציה מוכנה ליציאה.</p>
+      <p>אחד הדברים שאנחנו רוצים לקדם עכשיו הוא פגישה עם רמי לוי. המטרה היא לחבר אותו לאפליקציה דרך פרסום ולידים: בחשבוניות הסופר, בביטוחים שהוא התחיל להתעסק בהם לאחרונה, ובסלולר שהוא כבר חי אותו. אנחנו רואים בו שותף, ספונסר או מקור הכנסה מלידים ומפרסום.</p>
+      <p>נשמח לשמוע מה אתה חושב.</p>
+      <p class="sign">יאיר</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap">המסכים והסכומים הם דוגמה להמחשה, לא נתונים של משתמשים אמיתיים. אין עדיין הסכם עם רמי לוי.</div></footer>
+
+</body></html>
