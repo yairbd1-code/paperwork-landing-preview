@@ -102,6 +102,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .qtext::after{content:"";width:2px;height:1.15em;background:var(--violet);margin-inline-start:2px;animation:blink 1s steps(1) infinite}
 .qhint{margin-inline-start:auto;font-size:13px;color:var(--muted);white-space:nowrap}
 @keyframes blink{50%{opacity:0}}
+.forever-note{display:flex;gap:10px;align-items:flex-start;margin:0;font-size:15.5px;line-height:1.55;max-width:56ch;padding:12px 16px;border-radius:16px;background:var(--card);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--violet) 32%,transparent)}
+.forever-note .ic{width:18px;height:18px;margin-top:3px;color:var(--green);stroke-width:2.6}
+.forever-note b{font-weight:800;color:var(--violet-ink)}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14.5px;color:var(--muted)}
 .hero-meta span{display:inline-flex;gap:7px;align-items:center}
 .hero-meta .ic{width:16px;height:16px;color:var(--green)}
@@ -124,7 +127,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .holder b{display:block;font-size:16px;font-weight:800}
 .holder span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pull{width:120px;height:14px;border-radius:999px;background:#3B3466;box-shadow:inset 0 2px 0 rgba(255,255,255,.12)}
-@media (max-width:920px){.drawer{margin-top:120px}}
+/* hero: five sources feed the drawer */
+.hero-anim{position:relative;width:100%;max-width:540px;margin-inline:auto}
+.hero-anim .drawer{margin-top:0}
+.srcs{display:flex;justify-content:space-between;gap:6px;margin-bottom:128px;position:relative;z-index:2}
+.src-i{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;min-width:0}
+.src-i .si{width:56px;height:56px;border-radius:18px;background:var(--card);display:grid;place-items:center;box-shadow:0 10px 22px -16px var(--shadow),inset 0 0 0 1.5px var(--sunk);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+.src-i .si .ic{width:24px;height:24px}
+.src-i .sl{font-size:13px;font-weight:600;color:var(--muted);text-align:center;line-height:1.25;transition:color .3s}
+.src-i.on .si{transform:translateY(-4px) scale(1.06);box-shadow:0 14px 26px -14px var(--shadow),inset 0 0 0 2px var(--violet)}
+.src-i.on .sl{color:var(--violet-ink)}
+.flydoc{position:absolute;left:0;top:0;width:54px;height:68px;border-radius:8px;background:#fff;box-shadow:0 14px 28px -10px rgba(29,21,67,.5),0 0 0 1.5px #C5D8FF;padding:11px 9px;display:flex;flex-direction:column;gap:5px;opacity:0;pointer-events:none;z-index:30;will-change:transform,opacity}
+.flydoc i{display:block;height:5px;border-radius:2px;background:#D6DDEE}
+.flydoc i:first-child{width:60%;background:#7C9AFF}
+.flydoc i:last-child{width:75%}
 @media (max-width:520px){.drawer{height:420px}.icard{height:360px}.icard.up{transform:translateY(-112px)}.icard .t1{font-size:16px}.icard .tab{width:42%;font-size:14px;padding:0 10px}.front{height:128px;inset-inline:-6px}}
 
 /* ===== mess -> order ===== */
@@ -466,7 +482,11 @@ details p{padding-bottom:24px;max-width:62ch}
   .hero h1{order:1;font-size:clamp(40px,11.6vw,54px)}
   .qbox{order:2;height:58px;font-size:18px;padding:0 16px;gap:10px}
   .qhint{font-size:12px}
-  .drawer{order:3;margin-top:44px;height:372px}
+  .hero-anim{order:3}
+  .drawer{height:372px}
+  .srcs{margin-bottom:92px}
+  .src-i .si{width:50px;height:50px;border-radius:16px}
+  .src-i .sl{font-size:11.5px}
   .icard{height:340px}
   .icard .tab{width:40%;font-size:14px;padding:0 10px}
   .icard.up{transform:translateY(-84px)}
@@ -477,7 +497,8 @@ details p{padding-bottom:24px;max-width:62ch}
   .hero .lead{order:4}
   .stores{order:5;display:grid!important;grid-template-columns:1fr 1fr;gap:10px}
   .stores .store{justify-content:center;padding:0 10px}
-  .hero-meta{order:6}
+  .forever-note{order:6;font-size:14.5px}
+  .hero-meta{order:7}
   /* mess to order */
   .m2o{gap:14px}
   .eph{padding:10px 12px}
@@ -554,6 +575,8 @@ details p{padding-bottom:24px;max-width:62ch}
   <symbol id="i-offer" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/></symbol>
   <symbol id="i-sign" viewBox="0 0 24 24"><path d="M3 19c3-1 4-5 6-5s1 4 3 4 3-3 5-3"/><path d="M15 4l5 5-8 8H7v-5z"/></symbol>
   <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2L20 8H7"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 20h14"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 96 32"><path d="M92 16H8M20 5L6 16l14 11"/></symbol>
 </svg>
 
@@ -571,15 +594,20 @@ details p{padding-bottom:24px;max-width:62ch}
 <header class="in hero" id="top">
   <div class="hero-copy">
     <h1 class="h-xl">נגמר החיפוש אחרי מסמכים.</h1>
-    <p class="lead">PaperWork אוספת את כל המסמכים מהטלפון, מהמייל ומההודעות, מסדרת אותם בעצמה, ובודקת אם מגיע לכם כסף שלא ידעתם עליו.</p>
+    <p class="lead">PaperWork אוספת את כל המסמכים מהמייל, מההודעות, מהגלריה ומתיקיית ההורדות, או שאתם מעלים אותם ידנית. היא מסדרת אותם בעצמה, ובודקת אם אולי מגיע לכם כסף שלא ידעתם עליו.</p>
     <div class="qbox" aria-label="הדגמה של חיפוש במסמכים"><svg class="ic"><use href="#i-search"/></svg><span class="qtext" id="qtext">ביטוח רכב</span><span class="qhint" id="qhint">נמצא · 0.4 שנ׳</span></div>
     <div class="stores" style="display:flex;gap:12px;flex-wrap:wrap">
       <a class="store" href="#price"><svg viewBox="0 0 24 24"><path d="M4 2.5v19l10.5-9.5L4 2.5zm11.7 8.4L6.6 3.2l11.2 6.4-2.1 1.3zm0 2.2l2.1 1.3-11.2 6.4 9.1-7.7zM19 10.4l2.4 1.4c.5.3.5.9 0 1.2L19 14.4l-2.6-2 2.6-2z"/></svg><span><small>הורדה מ-</small>Google Play</span></a>
       <a class="store" href="#price"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.9-1.1-2.9-4.3zM13.9 5.2c.7-.8 1.2-2 1-3.2-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3.1 1.1.1 2.2-.6 2.9-1.4z"/></svg><span><small>הורדה מ-</small>App Store</span></a>
     </div>
-    <div class="hero-meta"><span><svg class="ic"><use href="#i-check"/></svg>חינם לתמיד</span><span><svg class="ic"><use href="#i-check"/></svg>עברית ואנגלית</span><span><svg class="ic"><use href="#i-check"/></svg>בלי לסדר כלום</span></div>
+    <p class="forever-note"><svg class="ic"><use href="#i-check"/></svg><span><b>חינם לתמיד.</b> לא תקופת ניסיון ולא חודש ראשון במתנה. הגרסה החינמית נשארת חינמית, ומשדרגים רק כשרוצים יותר.</span></p>
+    <div class="hero-meta"><span><svg class="ic"><use href="#i-check"/></svg>עברית ואנגלית</span><span><svg class="ic"><use href="#i-check"/></svg>בלי לסדר כלום</span></div>
   </div>
-  <div class="drawer" id="drawer" aria-hidden="true"></div>
+  <div class="hero-anim" id="heroanim" aria-hidden="true">
+    <div class="srcs" id="srcs"></div>
+    <div class="drawer" id="drawer"></div>
+    <div class="flydoc" id="flydoc"><i></i><i></i><i></i></div>
+  </div>
 </header>
 
 <!-- MESS -> ORDER -->
@@ -595,6 +623,7 @@ details p{padding-bottom:24px;max-width:62ch}
         <div class="eph" style="--r:1.2deg;--x:-14px"><span class="src"><svg class="ic"><use href="#i-pdf"/></svg></span><div><b>הורדות</b><span class="ltr">Policy_2026_final(3).pdf</span></div></div>
         <div class="eph" style="--r:-.6deg;--x:24px"><span class="src"><svg class="ic"><use href="#i-mail"/></svg></span><div><b>מייל · חברת החשמל</b><span>החשבונית לתקופה 07–08 מצורפת</span></div></div>
         <div class="eph" style="--r:1.8deg;--x:-4px"><span class="src"><svg class="ic"><use href="#i-photo"/></svg></span><div><b>גלריה</b><span class="ltr">IMG_4471.jpg</span></div></div>
+        <div class="eph" style="--r:-1deg;--x:14px"><span class="src"><svg class="ic"><use href="#i-upload"/></svg></span><div><b>העלאה ידנית</b><span>חוזה שכירות שצילמתם עכשיו</span></div></div>
       </div>
       <div class="arr" aria-hidden="true"><svg viewBox="0 0 96 32" fill="none" stroke="var(--violet)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow"/></svg></div>
       <div class="order">
@@ -602,6 +631,7 @@ details p{padding-bottom:24px;max-width:62ch}
         <div class="orow c-ins"><span class="l"><svg class="ic"><use href="#i-ins"/></svg><span>פוליסת ביטוח רכב 2026</span></span><em>ביטוח</em></div>
         <div class="orow c-bill"><span class="l"><svg class="ic"><use href="#i-bill"/></svg><span>חשבון חשמל · יולי–אוגוסט</span></span><em>חשבונות</em></div>
         <div class="orow c-car"><span class="l"><svg class="ic"><use href="#i-car"/></svg><span>רישיון רכב</span></span><em>רכב</em></div>
+        <div class="orow c-home"><span class="l"><svg class="ic"><use href="#i-home"/></svg><span>חוזה שכירות 2026</span></span><em>דיור</em></div>
       </div>
     </div>
   </div>
@@ -630,9 +660,9 @@ details p{padding-bottom:24px;max-width:62ch}
   <div class="in">
     <div class="sec-head"><h2 class="h-l">מתקינים פעם אחת, וזהו.</h2></div>
     <div class="steps">
-      <div class="step"><h3>מתקינים ומתחברים</h3><p>נכנסים באמצעות חשבון Google ובוחרים מה לסרוק: קבצים, הודעות, מייל. כל מקור בנפרד.</p></div>
+      <div class="step"><h3>מתקינים ומתחברים</h3><p>נכנסים באמצעות חשבון Google ובוחרים מה לסרוק: מייל, הודעות, גלריה, תיקיית ההורדות. כל מקור בנפרד, ואפשר גם להעלות מסמך ידנית בכל רגע.</p></div>
       <div class="step"><h3>האפליקציה מסדרת</h3><p>היא סורקת את הקבצים מהחודשים האחרונים, מזהה אילו מהם הם מסמכים, ונותנת לכל אחד קטגוריה ושם ברור.</p></div>
-      <div class="step"><h3>מוצאים בשניות</h3><p>לפי נושא, בחיפוש חופשי או לפי תאריך. כל מסמך חדש נכנס אוטומטית למקום שלו.</p></div>
+      <div class="step"><h3>מוצאים בשניות</h3><p>לפי נושא, לפי שם המסמך או לפי תאריך. כל מסמך חדש נכנס אוטומטית למקום שלו.</p></div>
     </div>
   </div>
 </section>
@@ -641,42 +671,42 @@ details p{padding-bottom:24px;max-width:62ch}
 <section class="band sunk-band">
   <div class="in">
     <div class="sec-head">
-      <h2 class="h-l">לא רק מסדרת, גם חוסכת לכם כסף</h2>
-      <p class="lead">כשכל המסמכים במקום אחד, אפשר לעשות איתם הרבה יותר: למצוא כסף שמגיע לכם, לתפוס חיובים מיותרים ולמלא טפסים בלי כאב ראש.</p>
+      <h2 class="h-l">לא רק מסדרת, גם בודקת איפה אפשר לחסוך</h2>
+      <p class="lead">כשכל המסמכים במקום אחד, אפשר לעשות איתם הרבה יותר: למלא ולחתום על טפסים, לבדוק אם אולי מגיע לכם כסף, ולזהות חיובים חריגים.</p>
     </div>
     <div class="cat swipe">
-      <article class="fx w4 c-bill"><span class="tab"><svg class="ic"><use href="#i-money"/></svg>מה מגיע לכם</span><span class="pchip plus">פלוס</span>
-        <h3>אולי מגיע לכם כסף</h3><p>האפליקציה בודקת טופסי 106, תלושי שכר, קבלות וביטוחים, ומחפשת החזרי מס, טעויות בתלוש, חיובים כפולים וזכויות שלא מימשתם.</p>
-        <div class="art">
-          <div class="mini"><span class="l"><svg class="ic"><use href="#i-money"/></svg><span>החזר מס אפשרי על 2024</span></span><em>הערכה: ₪3,200</em></div>
-          <div class="mini"><span class="l"><svg class="ic"><use href="#i-work"/></svg><span>שעות נוספות שלא שולמו בתלוש של ספטמבר</span></span><em>לבדיקה</em></div>
-          <div class="mini"><span class="l"><svg class="ic"><use href="#i-ins"/></svg><span>חיוב כפול על ביטוח הרכב</span></span><em>₪312</em></div></div></article>
-      <article class="fx c-car"><span class="tab"><svg class="ic"><use href="#i-offer"/></svg>חיסכון</span><span class="pchip free">חינם</span>
-        <h3>משלמים יותר מדי?</h3><p>האפליקציה בודקת אם יש מסלול זול יותר לחשבונות החשמל, הסלולר והביטוח, ואם יש, מציגה לכם אותו.</p>
-        <div class="art"><div class="mini"><span class="l"><span>סלולר: מסלול דומה ב-₪35</span></span><em>חיסכון ₪34 בחודש</em></div></div></article>
-      <article class="fx w3 c-work"><span class="tab"><svg class="ic"><use href="#i-form"/></svg>טפסים</span><span class="pchip prem">פרימיום</span>
-        <h3>החזר מס? הטופס מתמלא מעצמו</h3><p>בקשה להחזר מס, טפסים לביטוח לאומי, טפסים מהעבודה. ה-AI ממלא אותם על סמך המסמכים שכבר שמורים אצלכם, ונשאר לכם רק לבדוק ולהגיש.</p>
-        <div class="art"><div class="fline"><span>הכנסה ברוטו, מתוך 106</span><b>₪184,320</b></div><div class="fline"><span>תרומות, סעיף 46</span><b>₪2,400</b></div></div></article>
-      <article class="fx w3 c-fin"><span class="tab"><svg class="ic"><use href="#i-chat"/></svg>עוזר</span><span class="pchip prem">פרימיום</span>
-        <h3>שואלים במילים, מקבלים תשובה</h3>
-        <div class="art"><div class="abub me">כמה שילמתי על ביטוחים השנה?</div><div class="abub">₪11,640 על 4 ביטוחים. ביטוח הדירה התייקר ב-18% לעומת אשתקד.</div></div></article>
-      <article class="fx c-ins"><span class="tab"><svg class="ic"><use href="#i-search"/></svg>חיפוש</span><span class="pchip free">חינם</span>
-        <h3>כל מסמך תוך שנייה</h3><p>החיפוש סורק גם את תוכן המסמך, ולא רק את שמו.</p>
-        <div class="art"><div class="mini q"><span class="l"><svg class="ic"><use href="#i-search"/></svg><span>אחריות מכונת כביסה</span></span></div></div></article>
-      <article class="fx c-med"><span class="tab"><svg class="ic"><use href="#i-bell"/></svg>תזכורות</span><span class="pchip prem">פרימיום</span>
-        <h3>תזכורת לפני שזה עולה לכם כסף</h3><p>ביטוח שמתחדש אוטומטית במחיר גבוה יותר, אחריות שעומדת לפוג, טסט שמתקרב, דרכון שצריך לחדש לפני טיסה.</p>
-        <div class="art dchips"><div class="dchip"><b>12</b><span>ינו׳ · ביטוח מתחדש</span></div><div class="dchip"><b>03</b><span>מרץ · אחריות פגה</span></div></div></article>
-      <article class="fx c-mail"><span class="tab"><svg class="ic"><use href="#i-laptop"/></svg>מחשב</span><span class="pchip free">חינם</span>
-        <h3>גם מהמחשב</h3><p>סורקים קוד QR מהטלפון, וכל המסמכים זמינים במחשב. נוח להדפיס ולשלוח.</p></article>
-      <article class="fx w3 c-study"><span class="tab"><svg class="ic"><use href="#i-sign"/></svg>חתימה</span><span class="pchip free">חינם</span>
-        <h3>חותמים בלי להדפיס</h3><p>טופס מהבנק, אישור לבית הספר, חוזה. כותבים, מסמנים, מוסיפים תאריך, חותמים באצבע ושולחים. הכול מהטלפון.</p>
-        <div class="art"><div class="fline"><span>חתימה</span><b>נוספה</b></div><div class="fline"><span>תאריך</span><b>14/11/2026</b></div></div></article>
-      <article class="fx w3 c-shop"><span class="tab"><svg class="ic"><use href="#i-cart"/></svg>סופר</span><span class="pchip free">חינם</span>
-        <h3>שילמתם יותר מדי בסופר?</h3><p>מצלמים את הקבלה, והאפליקציה בודקת כמה היה עולה אותו סל ברשת זולה יותר.</p>
-        <div class="art"><div class="mini"><span class="l"><svg class="ic"><use href="#i-cart"/></svg><span>אותו סל ברשת אחרת</span></span><em>חיסכון ₪86</em></div></div></article>
       <article class="fx w6 c-oth"><span class="tab"><svg class="ic"><use href="#i-folder"/></svg>הקטגוריות</span><span class="pchip free">חינם</span>
         <h3>13 מגירות לכל הניירת</h3>
         <div class="alltags" id="alltags"></div></article>
+      <article class="fx w3 c-ins"><span class="tab"><svg class="ic"><use href="#i-search"/></svg>חיפוש</span><span class="pchip free">חינם</span>
+        <h3>כל מסמך תוך שנייה</h3><p>חיפוש מהיר לפי שם המסמך. בפרימיום: חיפוש חכם במילים חופשיות, גם בתוך תוכן המסמכים.</p>
+        <div class="art"><div class="mini q"><span class="l"><svg class="ic"><use href="#i-search"/></svg><span>אחריות מכונת כביסה</span></span></div></div></article>
+      <article class="fx w3 c-study"><span class="tab"><svg class="ic"><use href="#i-sign"/></svg>חתימה</span><span class="pchip free">חינם</span>
+        <h3>חותמים בלי להדפיס</h3><p>טופס מהבנק, אישור לבית הספר, חוזה. כותבים, מסמנים, מוסיפים תאריך, חותמים באצבע ושולחים. הכול מהטלפון.</p>
+        <div class="art"><div class="fline"><span>חתימה</span><b>נוספה</b></div><div class="fline"><span>תאריך</span><b>14/11/2026</b></div></div></article>
+      <article class="fx w4 c-work"><span class="tab"><svg class="ic"><use href="#i-form"/></svg>טפסים</span><span class="pchip prem">פרימיום</span>
+        <h3>החזר מס? הטופס מתמלא מעצמו</h3><p>בקשה להחזר מס, טפסים לביטוח לאומי, טפסים מהעבודה. ה-AI ממלא אותם על סמך המסמכים שכבר שמורים אצלכם, ונשאר לכם רק לבדוק ולהגיש.</p>
+        <div class="art"><div class="fline"><span>הכנסה ברוטו, מתוך 106</span><b>₪184,320</b></div><div class="fline"><span>תרומות, סעיף 46</span><b>₪2,400</b></div></div></article>
+      <article class="fx c-mail"><span class="tab"><svg class="ic"><use href="#i-laptop"/></svg>מחשב</span><span class="pchip free">חינם</span>
+        <h3>גם מהמחשב</h3><p>סורקים קוד QR מהטלפון, וכל המסמכים זמינים במחשב. נוח להדפיס ולשלוח.</p></article>
+      <article class="fx w4 c-bill"><span class="tab"><svg class="ic"><use href="#i-money"/></svg>מה מגיע לכם</span><span class="pchip plus">פלוס</span>
+        <h3>אולי מגיע לכם כסף</h3><p>האפליקציה בודקת טופסי 106, תלושי שכר, קבלות וביטוחים, ובודקת אם יש החזרי מס אפשריים, טעויות אפשריות בתלוש, חיובים כפולים או זכויות שלא מימשתם.</p>
+        <div class="art">
+          <div class="mini"><span class="l"><svg class="ic"><use href="#i-money"/></svg><span>החזר מס אפשרי על 2024</span></span><em>הערכה: ₪3,200</em></div>
+          <div class="mini"><span class="l"><svg class="ic"><use href="#i-work"/></svg><span>ייתכן ששעות נוספות לא שולמו בתלוש ספטמבר</span></span><em>לבדיקה</em></div>
+          <div class="mini"><span class="l"><svg class="ic"><use href="#i-ins"/></svg><span>חיוב שנראה כפול על ביטוח הרכב</span></span><em>₪312</em></div></div></article>
+      <article class="fx c-car"><span class="tab"><svg class="ic"><use href="#i-offer"/></svg>חיסכון</span><span class="pchip free">חינם</span>
+        <h3>משלמים יותר מדי?</h3><p>האפליקציה בודקת אם יש מסלול זול יותר לחשבונות החשמל, הסלולר והביטוח, ואם יש, מציגה לכם אותו.</p>
+        <div class="art"><div class="mini"><span class="l"><span>סלולר: מסלול דומה ב-₪35</span></span><em>חיסכון אפשרי ₪34 בחודש</em></div></div></article>
+      <article class="fx c-shop"><span class="tab"><svg class="ic"><use href="#i-cart"/></svg>סופר</span><span class="pchip free">חינם</span>
+        <h3>שילמתם יותר מדי בסופר?</h3><p>מצלמים את הקבלה, והאפליקציה בודקת כמה היה עולה אותו סל ברשת זולה יותר.</p>
+        <div class="art"><div class="mini"><span class="l"><svg class="ic"><use href="#i-cart"/></svg><span>אותו סל ברשת אחרת</span></span><em>חיסכון אפשרי ₪86</em></div></div></article>
+      <article class="fx c-med"><span class="tab"><svg class="ic"><use href="#i-bell"/></svg>תזכורות</span><span class="pchip prem">פרימיום</span>
+        <h3>תזכורת לפני שזה עולה לכם כסף</h3><p>ביטוח שמתחדש אוטומטית במחיר גבוה יותר, אחריות שעומדת לפוג, טסט שמתקרב, דרכון שצריך לחדש לפני טיסה.</p>
+        <div class="art dchips"><div class="dchip"><b>12</b><span>ינו׳ · ביטוח מתחדש</span></div><div class="dchip"><b>03</b><span>מרץ · אחריות פגה</span></div></div></article>
+      <article class="fx c-fin"><span class="tab"><svg class="ic"><use href="#i-chat"/></svg>עוזר</span><span class="pchip prem">פרימיום</span>
+        <h3>שואלים במילים, מקבלים תשובה</h3>
+        <div class="art"><div class="abub me">כמה שילמתי על ביטוחים השנה?</div><div class="abub">₪11,640 על 4 ביטוחים. ביטוח הדירה התייקר ב-18% לעומת אשתקד.</div></div></article>
     </div>
     <div class="dots" aria-hidden="true"></div>
   </div>
@@ -739,7 +769,7 @@ details p{padding-bottom:24px;max-width:62ch}
     <div class="forever">
       <div style="display:flex;flex-direction:column;gap:20px">
         <h2 class="h-xl">חינם. <em>לתמיד.</em></h2>
-        <p class="lead">ברוב האפליקציות ה"חינם" נגמר אחרי שבועיים. אצלנו לא. הגרסה החינמית של PaperWork נשארת חינמית: סריקה ומיון, חיפוש, מילוי וחתימה על טפסים, הצעות חיסכון, השוואת מחירים בסופר וכניסה מהמחשב. משלמים רק אם רוצים יותר.</p>
+        <p class="lead">ברוב האפליקציות ה"חינם" נגמר אחרי שבועיים. אצלנו לא. הגרסה החינמית של PaperWork נשארת חינמית: סריקה ומיון, חיפוש לפי שם המסמך, מילוי וחתימה על טפסים, הצעות חיסכון, השוואת מחירים בסופר וכניסה מהמחשב. משלמים רק אם רוצים יותר.</p>
       </div>
       <div class="promises">
         <div class="promise"><svg class="ic"><use href="#i-check"/></svg>לא תקופת ניסיון</div>
@@ -752,7 +782,7 @@ details p{padding-bottom:24px;max-width:62ch}
         <span class="stamp">חינם לתמיד</span>
         <div class="nm">חינם</div>
         <div class="amt"><b>₪0</b><span>היום, ובעוד שנה</span></div>
-        <ul><li><svg class="ic"><use href="#i-check"/></svg>סריקה ומיון אוטומטיים, כל הזמן</li><li><svg class="ic"><use href="#i-check"/></svg>העלאה ידנית של כל מסמך</li><li><svg class="ic"><use href="#i-check"/></svg>חיפוש, גם בתוך הטקסט של המסמך</li><li><svg class="ic"><use href="#i-check"/></svg>13 קטגוריות, מועדפים ואפשרות לשנות קטגוריה</li><li><svg class="ic"><use href="#i-check"/></svg>מילוי טפסים בעצמכם: טקסט, סימון, תאריך, ציור</li><li><svg class="ic"><use href="#i-check"/></svg>חתימה וחותמת על כל מסמך</li><li><svg class="ic"><use href="#i-check"/></svg>שמירה ושיתוף של הטופס המלא</li><li><svg class="ic"><use href="#i-check"/></svg>הצעות חיסכון על חשבונות</li><li><svg class="ic"><use href="#i-check"/></svg>השוואת מחירים לקבלות מהסופר</li><li><svg class="ic"><use href="#i-check"/></svg>לוח שנה של המסמכים</li><li><svg class="ic"><use href="#i-check"/></svg>כניסה מהמחשב</li><li><svg class="ic"><use href="#i-check"/></svg>סריקה ראשונית של מסמכים מהחודש האחרון</li></ul>
+        <ul><li><svg class="ic"><use href="#i-check"/></svg>סריקה ומיון אוטומטיים, כל הזמן</li><li><svg class="ic"><use href="#i-check"/></svg>העלאה ידנית של כל מסמך</li><li><svg class="ic"><use href="#i-check"/></svg>חיפוש מהיר לפי שם המסמך</li><li><svg class="ic"><use href="#i-check"/></svg>13 קטגוריות, מועדפים ואפשרות לשנות קטגוריה</li><li><svg class="ic"><use href="#i-check"/></svg>מילוי טפסים בעצמכם: טקסט, סימון, תאריך, ציור</li><li><svg class="ic"><use href="#i-check"/></svg>חתימה וחותמת על כל מסמך</li><li><svg class="ic"><use href="#i-check"/></svg>שמירה ושיתוף של הטופס המלא</li><li><svg class="ic"><use href="#i-check"/></svg>הצעות חיסכון על חשבונות</li><li><svg class="ic"><use href="#i-check"/></svg>השוואת מחירים לקבלות מהסופר</li><li><svg class="ic"><use href="#i-check"/></svg>לוח שנה של המסמכים</li><li><svg class="ic"><use href="#i-check"/></svg>כניסה מהמחשב</li><li><svg class="ic"><use href="#i-check"/></svg>סריקה ראשונית של מסמכים מהחודש האחרון</li></ul>
         <a class="btn btn-go" href="#top">להורדה בחינם</a>
       </div>
       <div class="pr prem">
@@ -760,7 +790,7 @@ details p{padding-bottom:24px;max-width:62ch}
         <div class="amt"><b>₪24.90</b><span>לחודש*</span></div>
         <span class="yr">או ₪179.90 לשנה, כ-₪15 לחודש</span>
         <span class="inc">כל מה שבחינם, ועוד:</span>
-        <ul><li><svg class="ic"><use href="#i-check"/></svg>תזכורות לחידושים, אחריות ותשלומים</li><li><svg class="ic"><use href="#i-check"/></svg>העוזר שעונה מתוך המסמכים</li><li><svg class="ic"><use href="#i-check"/></svg>מילוי טפסים בעזרת AI</li><li><svg class="ic"><use href="#i-check"/></svg>איתור טפסים רשמיים והכנת תיק הגשה</li><li><svg class="ic"><use href="#i-check"/></svg>מסמכים משלושת החודשים האחרונים</li></ul>
+        <ul><li><svg class="ic"><use href="#i-check"/></svg>תזכורות לחידושים, אחריות ותשלומים</li><li><svg class="ic"><use href="#i-check"/></svg>חיפוש חכם במילים חופשיות, גם בתוך תוכן המסמכים</li><li><svg class="ic"><use href="#i-check"/></svg>העוזר שעונה מתוך המסמכים</li><li><svg class="ic"><use href="#i-check"/></svg>מילוי טפסים בעזרת AI</li><li><svg class="ic"><use href="#i-check"/></svg>איתור טפסים רשמיים והכנת תיק הגשה</li><li><svg class="ic"><use href="#i-check"/></svg>מסמכים משלושת החודשים האחרונים</li></ul>
         <a class="btn btn-dark" href="#top">לנסות את פרימיום</a>
         <span class="star">* רכישה מינימלית של 3 חודשים (₪74.70), בתשלום מראש</span>
       </div>
@@ -769,7 +799,7 @@ details p{padding-bottom:24px;max-width:62ch}
         <div class="amt"><b>₪34.90</b><span>לחודש*</span></div>
         <span class="yr">או ₪249.90 לשנה, כ-₪21 לחודש</span>
         <span class="inc">כל מה שבפרימיום, ועוד:</span>
-        <ul><li><svg class="ic"><use href="#i-check"/></svg>"מה מגיע לכם": החזרי מס, טעויות בתלוש, זכויות שלא מימשתם</li><li><svg class="ic"><use href="#i-check"/></svg>התראה על חיובים חריגים וכפולים</li><li><svg class="ic"><use href="#i-check"/></svg>איתור ביטוחים כפולים וחשבונות שהתייקרו</li><li><svg class="ic"><use href="#i-check"/></svg>מסמכים מששת החודשים האחרונים</li></ul>
+        <ul><li><svg class="ic"><use href="#i-check"/></svg>"מה מגיע לכם": בדיקת החזרי מס אפשריים, טעויות בתלוש וזכויות שלא מימשתם</li><li><svg class="ic"><use href="#i-check"/></svg>התראה על חיובים חריגים וכפולים</li><li><svg class="ic"><use href="#i-check"/></svg>איתור הזדמנויות לחיסכון: ביטוחים כפולים וחשבונות שהתייקרו</li><li><svg class="ic"><use href="#i-check"/></svg>מסמכים מששת החודשים האחרונים</li></ul>
         <a class="btn btn-gold" href="#top">לנסות את פלוס</a>
         <span class="star">* רכישה מינימלית של 3 חודשים (₪104.70), בתשלום מראש</span>
       </div>
@@ -784,7 +814,7 @@ details p{padding-bottom:24px;max-width:62ch}
   <div class="in faqg">
     <h2 class="h-l">שאלות נפוצות</h2>
     <div>
-      <details open><summary>החינמי באמת חינם לתמיד?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>כן. זו לא תקופת ניסיון, ואין יום שבו הגרסה החינמית נגמרת. סריקה ומיון, חיפוש, מילוי וחתימה על טפסים, הצעות חיסכון, השוואת מחירים בסופר וכניסה מהמחשב נשארים חינם. רוצים גם תזכורות, עוזר ובדיקה אם מגיע לכם כסף? עוברים לפרימיום או לפלוס, ואפשר לחזור לחינם מתי שרוצים.</p></details>
+      <details open><summary>החינמי באמת חינם לתמיד?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>כן. זו לא תקופת ניסיון, ואין יום שבו הגרסה החינמית נגמרת. סריקה ומיון, חיפוש לפי שם המסמך, מילוי וחתימה על טפסים, הצעות חיסכון, השוואת מחירים בסופר וכניסה מהמחשב נשארים חינם. רוצים גם חיפוש בתוך תוכן המסמכים, תזכורות, עוזר ובדיקה אם מגיע לכם כסף? עוברים לפרימיום או לפלוס, ואפשר לחזור לחינם מתי שרוצים.</p></details>
       <details><summary>צריך לסדר משהו בעצמי?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>לא. האפליקציה מוצאת, ממיינת ונותנת שם לכל מסמך. אם היא טועה בקטגוריה, מתקנים בלחיצה אחת.</p></details>
       <details><summary>מה קורה עם המסמכים שלי?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>הם נשמרים בחשבון שלכם, כדי שתמצאו אותם מכל מכשיר. אנחנו לא מוכרים אותם ולא משתמשים בהם לפרסום. אפשר למחוק מסמך או את כל החשבון בכל רגע.</p></details>
       <details><summary>זה עובד גם באייפון?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>כן. ההבדל היחיד הוא בהודעות: באייפון אפל לא מאפשרת לאפליקציות לקרוא הודעות, אז משתפים את ההודעה ל-PaperWork בלחיצה, והמסמך נשמר.</p></details>
@@ -843,28 +873,60 @@ function I(id){return '<svg class="ic"><use href="#i-'+id+'"/></svg>'}
 var ALL=[['per','אישי'],['ins','ביטוח'],['fin','פיננסי'],['work','עבודה'],['car','רכב'],['study','לימודים'],['med','רפואי'],['bill','חשבונות'],['shop','קניות'],['home','דיור'],['mail','דואר'],['cook','מתכונים'],['oth','אחר']];
 document.getElementById('alltags').innerHTML=ALL.map(function(c){return '<span class="tag c-'+c[0]+'">'+I(c[0])+c[1]+'</span>'}).join('');
 
-/* ---- hero drawer ---- */
-var DR=[['home','דיור','חוזה שכירות 2025–2026','הורדות · 14/08/2025','חוזה שכירות'],
-        ['work','עבודה','תלוש שכר · אוקטובר 2026','מהמייל · 09/11/2026','תלוש אוקטובר'],
-        ['shop','קניות','אחריות · מכונת כביסה','מהגלריה · בתוקף עד 03/2027','אחריות מכונת כביסה'],
-        ['ins','ביטוח','פוליסת ביטוח רכב 2026','מהודעה · 12/01/2026 · לא שמרת אותה','ביטוח רכב'],
-        ['med','רפואי','הפניה לבדיקות דם','מהודעה · 02/11/2026','הפניה לבדיקות'],
-        ['fin','פיננסי','טופס 106 · 2025','מהמייל · 03/02/2026','טופס 106']];
-var drawer=document.getElementById('drawer');
+/* ---- hero: documents arrive from five sources, get sorted, then found ---- */
+var DR=[['bill','חשבונות','חשבון חשמל · ספטמבר–אוקטובר','חשבון חשמל'],
+        ['work','עבודה','תלוש שכר · אוקטובר 2026','תלוש אוקטובר'],
+        ['shop','קניות','אחריות · מכונת כביסה','אחריות מכונת כביסה'],
+        ['ins','ביטוח','פוליסת ביטוח רכב 2026','ביטוח רכב'],
+        ['med','רפואי','הפניה לבדיקות דם','הפניה לבדיקות'],
+        ['fin','פיננסי','טופס 106 · 2025','טופס 106']];
+var SRC=[{ic:'mail',l:'מייל',card:0,via:'נכנס מהמייל · 05/11/2026'},
+         {ic:'sms',l:'הודעות',card:3,via:'נכנס מהודעה · 12/01/2026'},
+         {ic:'photo',l:'גלריה',card:2,via:'נכנס מהגלריה · צילום של הקבלה'},
+         {ic:'download',l:'הורדות',card:1,via:'נכנס מתיקיית ההורדות'},
+         {ic:'upload',l:'העלאה ידנית',card:4,via:'הועלה ידנית · לפני רגע'}];
+var drawer=document.getElementById('drawer'),anim=document.getElementById('heroanim'),chip=document.getElementById('flydoc');
+var srcBox=document.getElementById('srcs');
+srcBox.innerHTML=SRC.map(function(x){return '<div class="src-i"><span class="si">'+I(x.ic)+'</span><span class="sl">'+x.l+'</span></div>'}).join('');
+var srcEls=srcBox.querySelectorAll('.src-i');
 var small=matchMedia('(max-width:640px)').matches;
 var STEP=small?38:54, TOP=small?40:46;
 var tabPos=small?['0%','30%','60%']:['0%','33%','66%'];
 drawer.innerHTML=DR.map(function(d,i){
-  return '<div class="icard c-'+d[0]+'" style="top:'+(TOP+i*STEP)+'px;z-index:'+(i+1)+'"><span class="tab" style="inset-inline-start:'+tabPos[i%3]+'">'+I(d[0])+d[1]+'</span><div class="strip"><span class="t1">'+d[2]+'</span><span class="t2">'+d[3]+'</span><span class="found">נמצא</span></div></div>'}).join('')+
+  return '<div class="icard c-'+d[0]+'" style="top:'+(TOP+i*STEP)+'px;z-index:'+(i+1)+'"><span class="tab" style="inset-inline-start:'+tabPos[i%3]+'">'+I(d[0])+d[1]+'</span><div class="strip"><span class="t1">'+d[2]+'</span><span class="t2"></span><span class="found">סודר</span></div></div>'}).join('')+
   '<div class="front"><div class="holder"><b>המסמכים של הבית</b><span>148 מסמכים · 13 קטגוריות</span></div><div class="pull"></div></div>';
 var cards=drawer.querySelectorAll('.icard'),qt=document.getElementById('qtext'),qh=document.getElementById('qhint');
 function lift(i){[].forEach.call(cards,function(c,j){c.classList.toggle('up',j===i)})}
-if(REDUCED){lift(5)}else{
-  var order=small?[5,1,2,3,4]:[5,1,2,3,0,4],k=0;
-  (function cycle(){var i=order[k%order.length];k++;var q=DR[i][4];qt.textContent='';qh.style.opacity=0;lift(-1);
-    var n=0;var tt=setInterval(function(){n++;qt.textContent=q.slice(0,n);if(n>=q.length){clearInterval(tt);
-      setTimeout(function(){lift(i);qh.textContent='נמצא · 0.'+(3+(k%4))+' שנ׳';qh.style.opacity=1},280);
-      setTimeout(cycle,3600)}},85);})();
+function fly(si,ci){
+  if(!chip.animate)return;
+  var a=anim.getBoundingClientRect(),sr=srcEls[si].querySelector('.si').getBoundingClientRect(),c=cards[ci].getBoundingClientRect();
+  var x0=sr.left-a.left+sr.width/2-27,y0=sr.top-a.top+sr.height/2-34,x1=c.left-a.left+c.width/2-27,y1=c.top-a.top-30;
+  chip.animate([
+    {transform:'translate('+x0+'px,'+y0+'px) scale(.35)',opacity:0},
+    {transform:'translate('+x0+'px,'+(y0+34)+'px) scale(1)',opacity:1,offset:.18},
+    {transform:'translate('+((x0+x1)/2)+'px,'+((y0+y1)/2+10)+'px) scale(1) rotate(-5deg)',opacity:1,offset:.6},
+    {transform:'translate('+x1+'px,'+y1+'px) scale(.5)',opacity:0}
+  ],{duration:1250,easing:'cubic-bezier(.45,0,.2,1)',fill:'forwards'});
+}
+if(REDUCED){
+  cards[3].querySelector('.t2').textContent=SRC[1].via;lift(3);
+}else{
+  var k=0,visible=true,pending=false,T=[];
+  function later(ms,fn){T.push(setTimeout(fn,ms))}
+  function step(){
+    T=[];if(!visible||document.hidden){pending=true;return}
+    var si=k%SRC.length,S=SRC[si];k++;
+    [].forEach.call(srcEls,function(e,j){e.classList.toggle('on',j===si)});
+    lift(-1);qt.textContent='';qh.style.opacity=0;
+    later(250,function(){fly(si,S.card)});
+    later(1450,function(){srcEls[si].classList.remove('on');cards[S.card].querySelector('.t2').textContent=S.via;lift(S.card)});
+    var q=DR[S.card][3];
+    later(2150,function(){var n=0,tt=setInterval(function(){n++;qt.textContent=q.slice(0,n);if(n>=q.length){clearInterval(tt);qh.textContent='נמצא · 0.'+(3+k%4)+' שנ׳';qh.style.opacity=1}},75)});
+    later(4700,step);
+  }
+  try{new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&pending){pending=false;step()}}).observe(anim)}catch(e){}
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&pending){pending=false;step()}});
+  step();
 }
 
 /* ---- player engine ---- */
@@ -908,7 +970,7 @@ D.search={title:'חיפוש',c:'ins',ic:'search',dur:9000,
  }};
 D.sort={title:'מיון אוטומטי',c:'med',ic:'sort',dur:9500,
  sub:'בפעם הראשונה האפליקציה עוברת על כל הטלפון ומסדרת הכול. מכאן, כל מסמך חדש נכנס אוטומטית למקום שלו.',
- html:'<div class="layer" id="s1"><div class="ah"><span class="t">מסדרים את המסמכים</span></div><div class="sub">קבצים · הודעות · מייל</div><div class="prog"><i></i></div><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sub">נמצאו</span><span class="big"><span class="cnt">0</span> מסמכים</span></div><div class="feed">'+
+ html:'<div class="layer" id="s1"><div class="ah"><span class="t">מסדרים את המסמכים</span></div><div class="sub">מייל · הודעות · גלריה · הורדות · העלאה ידנית</div><div class="prog"><i></i></div><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sub">נמצאו</span><span class="big"><span class="cnt">0</span> מסמכים</span></div><div class="feed">'+
   [['Policy_2026_final(3).pdf','ins','ביטוח'],['הודעה: תוצאות בדיקת דם','med','רפואי'],['Electric_07-08.pdf','bill','חשבונות'],['IMG_4471.jpg','car','רכב'],['Payslip_March.pdf','work','עבודה'],['הודעה: אישור העברה','fin','פיננסי'],['Rent_contract.pdf','home','דיור']].map(function(f,i){return '<div class="fi hide f'+i+'"><span class="nm">'+f[0]+'</span><span class="tag wait" data-c="'+f[1]+'" data-l="'+f[2]+'">בודק…</span></div>'}).join('')+
   '</div></div><div class="layer off-b" id="s2"><div class="ah"><span class="t">הכול מסודר</span></div><div class="sub">148 מסמכים ב-8 קטגוריות</div><div class="gridc">'+CAT.map(function(c){return '<div class="cr c-'+c[1]+'"><span class="l">'+I(c[1])+c[0]+'</span><em><span class="n" data-to="'+c[2]+'">0</span> מסמכים</em></div>'}).join('')+'</div></div>',
  play:function(a,at){var bar=a.q('.prog i');
@@ -919,7 +981,7 @@ D.sort={title:'מיון אוטומטי',c:'med',ic:'sort',dur:9500,
   [].forEach.call(a.qa('#s2 .n'),function(n){a.count(n,+n.dataset.to,6500,1400)});
  }};
 D.refund={title:'מה מגיע לכם',c:'bill',ic:'money',dur:10000,
- sub:'האפליקציה בודקת טופסי 106, תלושי שכר וקבלות, ומחפשת כסף שמגיע לכם: החזרי מס, טעויות בתלוש, זכויות שלא מימשתם.',
+ sub:'האפליקציה בודקת טופסי 106, תלושי שכר וקבלות, ובודקת אם אולי מגיע לכם כסף: החזרי מס אפשריים, טעויות בתלוש, זכויות שלא מימשתם.',
  html:'<div class="layer"><div class="ah"><span class="t">מה מגיע לך</span><span class="chip plus">פלוס</span></div><div class="sub">בודקים שני טופסי 106, 12 תלושי שכר ו-6 קבלות על תרומות</div><div class="prog"><i></i></div>'+
   '<div class="found-card hide fc"><span class="sub">ייתכן שמגיע לך החזר מס על 2024</span><span class="bigamt">כ-₪<span class="am">0</span></span><span class="sub">הערכה לפי המסמכים שלך</span></div>'+
   '<div class="why hide w0">'+I('check')+'<span>עבדת אצל שני מעסיקים באותה שנה, והמס חושב כאילו עבדת אצל מעסיק אחד</span></div>'+
@@ -967,7 +1029,7 @@ D.ask={title:'עוזר אישי',c:'fin',ic:'chat',dur:9000,
   at(3700,function(){show(a.q('.w'))});
   at(5000,function(){a.q('.w').classList.add('gone');show(a.q('.an'))});
  }};
-var ORDER=['search','refund','form','bill','ask','sort'];
+var ORDER=['sort','search','form','refund','bill','ask'];
 
 /* ---- tour ---- */
 var band=document.getElementById('tour'),chaps=document.getElementById('chaps'),wrap=document.getElementById('tourwrap');
