@@ -111,11 +111,25 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* the drawer */
 .drawer{position:relative;height:500px;width:100%;max-width:540px;margin-inline:auto;margin-top:90px;clip-path:inset(-200px -40px 0 -40px)}
-.icard{position:absolute;inset-inline:0;height:420px;border-radius:6px 6px 0 0;background:var(--c);transition:transform .6s cubic-bezier(.16,1,.3,1)}
-.icard::before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 -1px 0 color-mix(in srgb,var(--e) 55%,transparent) inset,0 -8px 18px -14px var(--shadow)}
-.icard .tab{position:absolute;bottom:100%;height:38px;width:34%;padding:0 14px;display:flex;align-items:center;gap:8px;border-radius:14px 14px 0 0;background:var(--c);font-weight:700;font-size:15px;color:var(--ink)}
+.icard{--f:color-mix(in srgb,var(--c) 90%,var(--e));--rule:color-mix(in srgb,var(--e) 42%,transparent);--line:color-mix(in srgb,var(--e) 9%,transparent);--lit:color-mix(in srgb,var(--paper) 65%,transparent);
+  position:absolute;inset-inline:0;height:420px;border-radius:14px 14px 0 0;
+  background:linear-gradient(var(--rule),var(--rule)) 0 40px/100% 1.5px no-repeat,
+             repeating-linear-gradient(to bottom,transparent 0 19px,var(--line) 19px 20px) 0 42px/100% calc(100% - 42px) no-repeat,
+             var(--f);
+  box-shadow:0 -10px 20px -14px rgba(29,21,67,.38),inset 0 1.5px 0 var(--lit);
+  transition:transform .6s cubic-bezier(.16,1,.3,1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .icard{--f:color-mix(in srgb,var(--c) 97%,var(--e));--rule:color-mix(in srgb,var(--e) 35%,transparent);--line:color-mix(in srgb,var(--e) 7%,transparent)}}
+:root[data-theme="dark"] .icard{--f:color-mix(in srgb,var(--c) 97%,var(--e));--rule:color-mix(in srgb,var(--e) 35%,transparent);--line:color-mix(in srgb,var(--e) 7%,transparent)}
+.icard.pos-s{border-start-start-radius:0}
+.icard.pos-e{border-start-end-radius:0}
+.icard .tab::before,.icard .tab::after{content:"";position:absolute;bottom:0;width:12px;height:12px;pointer-events:none}
+.icard .tab::before{right:-12px;background:radial-gradient(circle at 100% 0,transparent 11.5px,var(--f) 12px)}
+.icard .tab::after{left:-12px;background:radial-gradient(circle at 0 0,transparent 11.5px,var(--f) 12px)}
+.icard.pos-s .tab::before,.icard.pos-e .tab::after{display:none}
+.icard .tab .tc{margin-inline-start:auto;font-size:12px;font-weight:600;color:color-mix(in srgb,var(--ink) 62%,var(--f));font-variant-numeric:tabular-nums}
+.icard .tab{position:absolute;bottom:100%;height:36px;width:34%;padding:0 12px;display:flex;align-items:center;gap:7px;border-radius:12px 12px 0 0;background:var(--f);font-weight:700;font-size:14.5px;color:var(--ink);box-shadow:0 -8px 16px -12px rgba(29,21,67,.38),inset 0 1.5px 0 var(--lit)}
 .icard .tab .ic{width:17px;height:17px}
-.icard .strip{position:relative;padding:16px 20px;display:flex;flex-direction:column;gap:4px;opacity:0;transition:opacity .35s}
+.icard .strip{position:relative;padding:12px 20px 16px;display:flex;flex-direction:column;gap:4px;opacity:0;transition:opacity .35s}
 .icard .t1{font-weight:700;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-inline-end:70px}
 .icard .t2{font-size:14px;color:var(--muted)}
 .icard.up{transform:translateY(-124px)}
@@ -881,12 +895,12 @@ var ALL=[['per','אישי'],['ins','ביטוח'],['fin','פיננסי'],['work',
 document.getElementById('alltags').innerHTML=ALL.map(function(c){return '<span class="tag c-'+c[0]+'">'+I(c[0])+c[1]+'</span>'}).join('');
 
 /* ---- hero: a fast stream of documents from five sources, sorted into the drawer ---- */
-var DR=[['bill','חשבונות','חשבון חשמל · ספטמבר–אוקטובר','חשבון חשמל'],
-        ['work','עבודה','תלוש שכר · אוקטובר 2026','תלוש אוקטובר'],
-        ['shop','קניות','אחריות · מכונת כביסה','אחריות מכונת כביסה'],
-        ['ins','ביטוח','פוליסת ביטוח רכב 2026','ביטוח רכב'],
-        ['med','רפואי','הפניה לבדיקות דם','הפניה לבדיקות'],
-        ['fin','פיננסי','טופס 106 · 2025','טופס 106']];
+var DR=[['bill','חשבונות','חשבון חשמל · ספטמבר–אוקטובר','חשבון חשמל',57],
+        ['work','עבודה','תלוש שכר · אוקטובר 2026','תלוש אוקטובר',18],
+        ['shop','קניות','אחריות · מכונת כביסה','אחריות מכונת כביסה',12],
+        ['ins','ביטוח','פוליסת ביטוח רכב 2026','ביטוח רכב',14],
+        ['med','רפואי','הפניה לבדיקות דם','הפניה לבדיקות',32],
+        ['fin','פיננסי','טופס 106 · 2025','טופס 106',21]];
 var SRC=[{ic:'gmail',l:'Gmail',c:'#EA4335',to:[0,1,3,5]},
          {ic:'sms',l:'הודעות',c:'#0BBE4C',to:[3,4,0]},
          {ic:'photos',l:'גלריה',c:'#F57F25',to:[2,4,0]},
@@ -903,7 +917,7 @@ var small=matchMedia('(max-width:640px)').matches;
 var STEP=small?38:54, TOP=small?40:46;
 var tabPos=small?['0%','30%','60%']:['0%','33%','66%'];
 drawer.innerHTML=DR.map(function(d,i){
-  return '<div class="icard c-'+d[0]+'" style="top:'+(TOP+i*STEP)+'px;z-index:'+(i+1)+'"><span class="tab" style="inset-inline-start:'+tabPos[i%3]+'">'+I(d[0])+d[1]+'</span><div class="strip"><span class="t1">'+d[2]+'</span><span class="t2"></span><span class="found">סודר</span></div></div>'}).join('')+
+  return '<div class="icard c-'+d[0]+' pos-'+['s','m','e'][i%3]+'" style="top:'+(TOP+i*STEP)+'px;z-index:'+(i+1)+'"><span class="tab" style="inset-inline-start:'+tabPos[i%3]+'">'+I(d[0])+d[1]+'<span class="tc">'+d[4]+'</span></span><div class="strip"><span class="t1">'+d[2]+'</span><span class="t2"></span><span class="found">סודר</span></div></div>'}).join('')+
   '<div class="front"><div class="holder"><b>המסמכים של הבית</b><span><em id="dcnt">148</em> מסמכים · 13 קטגוריות</span></div><div class="pull"></div></div>';
 var cards=drawer.querySelectorAll('.icard'),qt=document.getElementById('qtext'),qh=document.getElementById('qhint'),dcnt=document.getElementById('dcnt');
 function lift(i){[].forEach.call(cards,function(c,j){c.classList.toggle('up',j===i)})}
