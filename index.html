@@ -910,17 +910,17 @@ function lift(i){[].forEach.call(cards,function(c,j){c.classList.toggle('up',j==
 if(REDUCED||!document.body.animate){
   cards[3].querySelector('.t2').textContent=MOMENTS[1].via;lift(3);
 }else{
-  var POOL=[],count=148,visible=true,running=false,tick=null,mt=null,mi=0,EASE='cubic-bezier(.5,0,.15,1)';
-  for(var p=0;p<16;p++){var d=document.createElement('div');d.className='fd';flyer.appendChild(d);POOL.push({el:d,busy:false})}
+  var POOL=[],count=148,visible=true,running=false,tick=null,mt=null,mi=0,EASE='cubic-bezier(.4,0,.2,1)';
+  for(var p=0;p<20;p++){var d=document.createElement('div');d.className='fd';flyer.appendChild(d);POOL.push({el:d,busy:false})}
   function spawn(){
     var slot=null;for(var j=0;j<POOL.length;j++){if(!POOL[j].busy){slot=POOL[j];break}}if(!slot)return;
     var si=Math.floor(Math.random()*SRC.length),S=SRC[si],ci=S.to[Math.floor(Math.random()*S.to.length)];
     var a=anim.getBoundingClientRect(),ico=srcEls[si].querySelector('.si'),sr=ico.getBoundingClientRect(),c=cards[ci].getBoundingClientRect();
     var x0=sr.left-a.left+sr.width/2-17,y0=sr.top-a.top+sr.height/2-21;
     var x1=c.left-a.left+c.width*(0.2+Math.random()*0.6)-17,y1=c.top-a.top-14;
-    var mx=(x0+x1)/2+(Math.random()*60-30),my=(y0+y1)/2-10,rot=(Math.random()*24-12)|0,dur=520+Math.random()*260;
+    var mx=(x0+x1)/2+(Math.random()*60-30),my=(y0+y1)/2-10,rot=(Math.random()*24-12)|0,dur=950+Math.random()*350;
     slot.busy=true;slot.el.style.setProperty('--fc',S.c);
-    ico.animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:220,easing:'ease-out'});
+    ico.animate([{transform:'scale(1)'},{transform:'scale(1.07)'},{transform:'scale(1)'}],{duration:360,easing:'ease-out'});
     var an=slot.el.animate([
       {transform:'translate('+x0+'px,'+y0+'px) scale(.3)',opacity:0},
       {transform:'translate('+x0+'px,'+(y0+26)+'px) scale(1)',opacity:1,offset:.16},
@@ -928,17 +928,17 @@ if(REDUCED||!document.body.animate){
       {transform:'translate('+x1+'px,'+y1+'px) scale(.4) rotate('+(rot*2)+'deg)',opacity:0}
     ],{duration:dur,easing:EASE,fill:'forwards'});
     an.onfinish=function(){slot.busy=false;count++;dcnt.textContent=count.toLocaleString('en-US');
-      var tab=cards[ci].querySelector('.tab');tab.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:240,easing:'ease-out'})};
+      var tab=cards[ci].querySelector('.tab');tab.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:380,easing:'ease-out'})};
   }
   function moment(){
     var M=MOMENTS[mi%MOMENTS.length];mi++;
     [].forEach.call(srcEls,function(e,j){e.classList.toggle('on',j===M.src)});
     cards[M.card].querySelector('.t2').textContent=M.via;lift(M.card);
     var q=DR[M.card][3],n=0;qt.textContent='';qh.style.opacity=0;
-    var tt=setInterval(function(){n++;qt.textContent=q.slice(0,n);if(n>=q.length){clearInterval(tt);qh.textContent='נמצא · 0.'+(2+mi%5)+' שנ׳';qh.style.opacity=1}},45);
-    setTimeout(function(){lift(-1);srcEls[M.src].classList.remove('on')},2300);
+    var tt=setInterval(function(){n++;qt.textContent=q.slice(0,n);if(n>=q.length){clearInterval(tt);qh.textContent='נמצא · 0.'+(2+mi%5)+' שנ׳';qh.style.opacity=1}},60);
+    setTimeout(function(){lift(-1);srcEls[M.src].classList.remove('on')},2800);
   }
-  function start(){if(running)return;running=true;tick=setInterval(spawn,small?120:85);moment();mt=setInterval(moment,3000)}
+  function start(){if(running)return;running=true;tick=setInterval(spawn,small?240:170);moment();mt=setInterval(moment,3600)}
   function stop(){running=false;clearInterval(tick);clearInterval(mt)}
   function sync(){if(visible&&!document.hidden)start();else stop()}
   try{new IntersectionObserver(function(es){visible=es[0].isIntersecting;sync()}).observe(anim)}catch(e){}
